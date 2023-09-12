@@ -1,4 +1,4 @@
-class InfectionAnimation extends GameAnimation{
+class InfectionAnimation extends AbstractAnimation{
 
 	constructor(model,onFinishEvent,context,stepX,stepY,W,H){
 		super(new InfectionModel(discretemodel),onFinishEvent,context,stepX,stepY,W,H);

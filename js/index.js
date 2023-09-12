@@ -3,60 +3,7 @@ const MAX_SCORE=25;
 
 var scr,context
 
-var discretemodel,resetButton,infectionAnimation,mechanicalAnimation
-
-function idForBoosterButton(i,j){
-		return "button_"+i+"_"+j;
-}
-
-var firstI,firstJ
-
-function boost(secondI,secondJ){
-	changeDisplay("scores",-2);
-	discretemodel.boost(firstI,firstJ,secondI,secondJ);
-	mechanicalAnimation.launch();
-	refreshBooster(discretemodel.getM(),discretemodel.getN());
-}
-
-function pressBooster(i,j){
-	var button=document.getElementById(idForBoosterButton(i,j));
-	if(firstI==-1||firstJ==-1){
-		firstI=i;
-		firstJ=j;
-		button.innerHTML="0";
-	}else{
-		if(firstI==i&&firstJ==j){
-			button.innerHTML="*";
-		}else{
-			var secondI=i;
-			var secondJ=j;
-			button.innerHTML="0";
-			boost(secondI,secondJ);
-		}
-	}
-	
-}
-
-function style(color){
-	return "style='background-color:"+COLORS[color]+"'";
-}
-
-function refreshBooster(height,width){
-	firstI=-1;
-	firstJ=-1;
-	var booster="";
-	for(var i=0;i<height;i++){
-		booster+="<tr>";
-		for(var j=0;j<width;j++){
-			booster+="<td>";
-			booster+="<button "+style(discretemodel.getSituation(i,j))+ " id='"+idForBoosterButton(i,j)+"' onclick='pressBooster("+i+","+j+")'>*</button>";
-			booster+="</td>";
-		}
-		booster+="</tr>";
-	}
-	document.getElementById("booster").innerHTML=booster;
-}
-
+var discretemodel,resetButton,infectionAnimation,mechanicalAnimation,teleport
 
 function loadParametersAndLaunchGame(){
 	function setProgress(){
@@ -105,15 +52,22 @@ function loadParametersAndLaunchGame(){
 
 	infectionAnimation=new InfectionAnimation(new InfectionModel(discretemodel),onInfectionFinishEvent,context,stepX,stepY,W,H);
 	var onMechanicalFinishEvent=function(){
+		var disable=(discretemodel.getResult()==0);
 		mechanicalAnimation.getContinuumModel().updateDiscreteModel();
+		teleport.refresh();
+		if(disable){
+			teleport.disable();
+			changeDisplay("scores",-2);
+		}
 		scr.onclick=onClick;
-		refreshBooster(height,width);
 		if(discretemodel.isBroken()){
 			resetButton.disabled=false;
 			//alert("The game is broken. But it is my guilty... Press Reset!");
 		}
 	}
-	mechanicalAnimation=new MechanicalAnimation(new MechanicalModel(discretemodel),onMechanicalFinishEvent,context,stepX,stepY,W,H);
+	var mechanicalModel=new MechanicalModel(discretemodel);
+	mechanicalAnimation=new MechanicalAnimation(mechanicalModel,onMechanicalFinishEvent,context,stepX,stepY,W,H);
+	teleport=new Teleport(discretemodel,mechanicalAnimation);
 	mechanicalAnimation.launch();
 }
 

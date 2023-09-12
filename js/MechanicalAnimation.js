@@ -1,4 +1,4 @@
-class MechanicalAnimation extends GameAnimation{
+class MechanicalAnimation extends AbstractAnimation{
 	constructor(model,onFinishEvent,context,stepX,stepY,W,H){
 		super(model,onFinishEvent,context,stepX,stepY,W,H);
 	}

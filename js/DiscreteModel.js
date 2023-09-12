@@ -29,7 +29,7 @@ class DiscreteModel{
 		return this.infectionColor;
 	}
 
-	boost(firstI,firstJ,secondI,secondJ){
+	teleport(firstI,firstJ,secondI,secondJ){
 		var tmp=this.rows[firstI][firstJ];
 		this.rows[firstI][firstJ]=this.rows[secondI][secondJ];
 		this.rows[secondI][secondJ]=tmp;
@@ -46,7 +46,15 @@ class DiscreteModel{
 	}
 
 	getResult(){
-		return this.result;
+		var countOfEmptyTiles=0;
+		for(var i=0;i<this.m;i++){
+			for(var j=0;j<this.n;j++){
+				if(this.rows[i][j]==null){
+					countOfEmptyTiles++;		
+				}			
+			}
+		}
+		return countOfEmptyTiles;
 	}
 
 	setSituation(i,j,color){
@@ -114,7 +122,6 @@ class DiscreteModel{
 						continue;
 					}
 					if(this.spreadInfection(i,j)){
-						this.result++;
 						return true;
 					}				
 				}
@@ -124,7 +131,7 @@ class DiscreteModel{
 
 
 	cancelInfection(){
-		this.result=0;
+		this.countOfEmptyTiles=0;
 		this.rows[this.firstI][this.firstJ]=this.infectionColor;
 		this.lastI=this.firstI;
 		this.lastJ=this.firstJ;
@@ -133,7 +140,7 @@ class DiscreteModel{
 	}
 
 	startInfection(i,j){		
-		this.result=1;
+		this.countOfEmptyTiles=1;
 		this.infectionColor=this.rows[i][j];
 		this.firstI=i;
 		this.firstJ=j;

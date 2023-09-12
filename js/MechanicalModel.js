@@ -60,7 +60,7 @@ class MechanicalModel{
 			for(var j=0;j<this.n;j++){
 				this.mm.setSituation(i,j,this.getSituation(i,j).color);
 			}
-		}	
+		}
 	}
 
 	getSituation(i,j){
