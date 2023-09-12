@@ -1,0 +1,84 @@
+<html>
+	<head>
+		<title>Test. Pan Arsen</title>
+		<script src="js/GameAnimation.js"></script>
+		<script src="js/InfectionAnimation.js"></script>
+		<script src="js/MechanicalAnimation.js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/DiscreteModel.js"></script>
+		<script src="js/MechanicalModel.js"></script>
+		<script src="js/InfectionModel.js"></script>
+	</head>
+	<body onload="initialization()">
+		<table>
+			<tr>
+				<td>
+					<canvas id="my-screen" width="400" height="400"></canvas>
+				</td>
+				<td>
+					<h2>Teleport (U can switch two tiles):</h2>
+					<table border="1" id="booster">
+						<tr>
+							<td></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+
+		<p>
+		<table border="1">
+		<tr>
+		<td>
+		<div>
+			Motion duration:
+			<input type="range" id="motion-duration" onChange="mechanicalAnimation.setDuration()" min="0" max="1000"></input>
+			<br>
+			<i>(Count of frames=<span id="count-of-mechanical-frames"></span>, duration=<span id="setted-mechanical-duration"></span>)</i>
+		</div>
+		<div>
+			Duration of one infection:
+			<input type="range" id="infection-duration" onChange="infectionAnimation.setDuration()" min="1" max="1000"></input>
+			<br>
+			<i>(Count of frames=<span id="count-of-infection-frames"></span>, duration=<span id="setted-infection-duration"></span>)</i>
+		</div>
+		</td>
+
+		<td>
+		<div>M (width, count of columns):
+			<select id="width" onchange="loadParametersAndLaunchGame()"></select>
+		</div>
+		<div>N (height, count of rows):
+			<select id="height" onchange="loadParametersAndLaunchGame()"></select>
+		</div>
+		<div>C (count of colors):
+			<select id="colors" onchange="loadParametersAndLaunchGame()"></select>
+		</div>
+		</td>
+
+		<td>
+			<h2>Progress:</h2>
+			<input type="range" id="progress" min="0" disabled="true"></input>	
+			<div>Scores: <input  id="scores" type="text" size="20"></input></div>
+			<h2>Remain:</h2>
+			<div><input  id="remain" type="text" size="20"></input></div>
+			<button id="reset" onclick="reset()">Reset (by emergency)</button>
+		</td>
+		
+		</tr>
+		<tr>
+			<td>
+				Animation effects
+			</td>
+			<td>
+				Here U can launch new game
+			</td>
+			<td>
+				Control console for the game
+			</td>
+		</tr>
+		</table>
+		</p>
+
+	</body>
+</html>
