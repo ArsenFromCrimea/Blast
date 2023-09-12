@@ -1,13 +1,14 @@
 <html>
 	<head>
 		<title>Test. Pan Arsen</title>
-		<script src="js/GameAnimation.js"></script>
+		<script src="js/AbstractAnimation.js"></script>
 		<script src="js/InfectionAnimation.js"></script>
 		<script src="js/MechanicalAnimation.js"></script>
 		<script src="js/index.js"></script>
 		<script src="js/DiscreteModel.js"></script>
 		<script src="js/MechanicalModel.js"></script>
 		<script src="js/InfectionModel.js"></script>
+		<script src="js/Teleport.js"></script>
 	</head>
 	<body onload="initialization()">
 		<table>
@@ -16,12 +17,7 @@
 					<canvas id="my-screen" width="400" height="400"></canvas>
 				</td>
 				<td>
-					<h2>Teleport (U can switch two tiles):</h2>
-					<table border="1" id="booster">
-						<tr>
-							<td></td>
-						</tr>
-					</table>
+					<div id="teleport"></div>
 				</td>
 			</tr>
 		</table>
